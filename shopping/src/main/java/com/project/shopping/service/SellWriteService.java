@@ -48,8 +48,34 @@ public class SellWriteService {
             }
         }
 
-        // 상품 상세이미지
-        MultipartFile file2 = writeRequest.getDescription();
+        // 상품 상세이미지 1
+        MultipartFile file1 = writeRequest.getDes1();
+
+        File saveDir1 = null;
+        String newFileName1 = null;
+
+        // 파일이 없는걸 판별
+        if (file1.isEmpty() && file1 != null && file1.getSize() > 0){
+
+            // 저장 경로
+            String absolutePath = new File("").getAbsolutePath();
+            String path = "photo";
+            saveDir1 = new File(absolutePath, path);
+
+            // 파일이름이 중복되지 않도록 밀리초를 붙여줌
+            newFileName1 = System.currentTimeMillis()+file1.getOriginalFilename();
+
+            File newFile = new File(saveDir1, newFileName1);
+
+            try {
+                file.transferTo(newFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // 상품 상세이미지 2
+        MultipartFile file2 = writeRequest.getDes2();
 
         File saveDir2 = null;
         String newFileName2 = null;
@@ -74,6 +100,61 @@ public class SellWriteService {
             }
         }
 
+        // 상품 상세이미지 3
+        MultipartFile file3 = writeRequest.getDes3();
+
+        File saveDir3 = null;
+        String newFileName3 = null;
+
+        // 파일이 없는걸 판별
+        if (file3.isEmpty() && file3 != null && file3.getSize() > 0){
+
+            // 저장 경로
+            String absolutePath = new File("").getAbsolutePath();
+            String path = "photo";
+            saveDir3 = new File(absolutePath, path);
+
+            // 파일이름이 중복되지 않도록 밀리초를 붙여줌
+            newFileName3 = System.currentTimeMillis()+file3.getOriginalFilename();
+
+            File newFile = new File(saveDir3, newFileName3);
+
+            try {
+                file.transferTo(newFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        // 상품 상세이미지 4
+        MultipartFile file4 = writeRequest.getDes4();
+
+        File saveDir4 = null;
+        String newFileName4 = null;
+
+        // 파일이 없는걸 판별
+        if (file4.isEmpty() && file4 != null && file4.getSize() > 0){
+
+            // 저장 경로
+            String absolutePath = new File("").getAbsolutePath();
+            String path = "photo";
+            saveDir4 = new File(absolutePath, path);
+
+            // 파일이름이 중복되지 않도록 밀리초를 붙여줌
+            newFileName4 = System.currentTimeMillis()+file4.getOriginalFilename();
+
+            File newFile = new File(saveDir4, newFileName4);
+
+            try {
+                file.transferTo(newFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+
         // entity 에 저장
         Sell sell = writeRequest.toSellEntity();
 
@@ -82,10 +163,29 @@ public class SellWriteService {
         } else {
             sell.setSimage(null);
         }
-        if(newFileName2 != null) {
-            sell.setDescription(newFileName2);
+
+        if(newFileName1 != null) {
+            sell.setDes1(newFileName1);
         } else {
-            sell.setDescription(null);
+            sell.setDes1(null);
+        }
+
+        if(newFileName2 != null) {
+            sell.setDes2(newFileName2);
+        } else {
+            sell.setDes2(null);
+        }
+
+        if(newFileName3 != null) {
+            sell.setDes3(newFileName3);
+        } else {
+            sell.setDes3(null);
+        }
+
+        if(newFileName4 != null) {
+            sell.setDes4(newFileName4);
+        } else {
+            sell.setDes4(null);
         }
 
         int result = 0;

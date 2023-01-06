@@ -14,13 +14,19 @@ public class SellWriteRequest {
 
     private String product;  // 상품명
 
-    private Integer price;  // 판매금액
+    private String price;  // 판매금액
 
     private Integer qty;  // 재고수량
 
     private MultipartFile simage;  // 상품대표이미지
 
-    private MultipartFile description;  // 상품상세이미지
+    private MultipartFile des1;  // 상품상세이미지
+
+    private MultipartFile des2;  // 상품상세이미지
+
+    private MultipartFile des3;  // 상품상세이미지
+
+    private MultipartFile des4;  // 상품상세이미지
 
 
     public Sell toSellEntity(){
