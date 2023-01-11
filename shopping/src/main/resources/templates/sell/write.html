@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>상품 등록</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+
+<!--  nav 영역 시작-->
+<!--<div th:replace="fragment/nav"></div>-->
+
+<div class="container">
+
+<div class="card m-3">
+
+  <div class="card-header">
+    상품 등록
+  </div>
+
+  <div class="card-body">
+
+    <form method="post" enctype="multipart/form-data">
+
+      <div class="mb-3">
+        <label for="product" class="form-label">상품명</label>
+        <input type="text" class="form-control" id="product" name="product">
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">판매가격</label>
+        <input type="text" class="form-control" id="price" name="price">
+      </div>
+      <div class="mb-3">
+        <label for="qty" class="form-label">판매수량</label>
+        <input type="text" class="form-control" id="qty" name="qty">
+      </div>
+      <div class="mb-3">
+        <label for="photo" class="form-label">대표사진</label>
+        <input type="file" class="form-control" id="photo" name="photo" multiple="multiple">
+
+<!--        <label for="des1" class="form-label">상세사진1</label>
+        <input type="file" class="form-control" id="des1" name="des1">
+
+        <label for="des2" class="form-label">상세사진2</label>
+        <input type="file" class="form-control" id="des2" name="des2">
+
+        <label for="des3" class="form-label">상세사진3</label>
+        <input type="file" class="form-control" id="des3" name="des3">
+
+        <label for="des4" class="form-label">상세사진4</label>
+        <input type="file" class="form-control" id="des4" name="des4">-->
+      </div>
+
+
+      <div class="mb-3">
+        <input type="reset"  class="btn btn-outline-secondary" value="재입력"> <input type="submit" class="btn btn-outline-warning" value="등록">
+        <a class="btn btn-outline-danger" th:href="@{/sell/list}">돌아가기</a>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

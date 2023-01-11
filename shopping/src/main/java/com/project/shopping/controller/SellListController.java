@@ -1,7 +1,9 @@
 package com.project.shopping.controller;
 
+import com.project.shopping.entity.Sell;
 import com.project.shopping.service.SellListService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,15 +18,16 @@ public class SellListController {
     private SellListService listService;
 
 
-/*    @GetMapping
-    public void getSellList(SellListPage listPage, Model model){
-
-        model.addAttribute(listService.getList(listPage.getPage()));
-
-    }*/
     @GetMapping("/sell/list")
     public void getSellList(@PageableDefault(size = 10, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable, Model model){
 
-        model.addAttribute(listService.getList(pageable));
+        Page<Sell> sells = listService.getList(pageable);
+        int startPage = Math.max(0, sells.getPageable().getPageNumber()-9);
+        int endPage = Math.min(sells.getTotalPages(), sells.getPageable().getPageNumber()+9);
+        model.addAttribute("sellList", sells);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
+
     }
 }

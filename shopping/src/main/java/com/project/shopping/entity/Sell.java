@@ -1,9 +1,10 @@
 package com.project.shopping.entity;
 
 import lombok.*;
-import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +30,29 @@ public class Sell {
     private Integer qty;  // 재고수량
 
     @Column
+    private boolean sale;  // 품절처리
+
+
+    private String photo;
+
+    public Sell toSellEntity(){
+        return Sell.builder()
+                .product(product)
+                .price(price)
+                .qty(qty)
+                .sale(isSale())
+                .build();
+    }
+
+/*    @OneToMany(mappedBy = "sell", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<Photo> photo = new ArrayList<>();
+
+    public void addPhoto(Photo photo){
+        this.photo.add(photo);
+
+    }
+*/
+   /* @Column
     private String simage;  // 상품대표이미지
 
     @Column
@@ -41,5 +65,5 @@ public class Sell {
     private String des3;  // 상품상세이미지 3
 
     @Column
-    private String des4;  // 상품상세이미지 4
+    private String des4;  // 상품상세이미지 4*/
 }
