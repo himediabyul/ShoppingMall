@@ -1,10 +1,8 @@
 package com.project.shopping.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,28 +30,8 @@ public class Sell {
     @Column
     private boolean sale;  // 품절처리
 
-
-    private String photo;
-
-    public Sell toSellEntity(){
-        return Sell.builder()
-                .product(product)
-                .price(price)
-                .qty(qty)
-                .sale(isSale())
-                .build();
-    }
-
-/*    @OneToMany(mappedBy = "sell", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<Photo> photo = new ArrayList<>();
-
-    public void addPhoto(Photo photo){
-        this.photo.add(photo);
-
-    }
-*/
-   /* @Column
-    private String simage;  // 상품대표이미지
+    @Column
+    private String photo;  // 상품대표이미지
 
     @Column
     private String des1;  // 상품상세이미지 1
@@ -61,9 +39,4 @@ public class Sell {
     @Column
     private String des2;  // 상품상세이미지 2
 
-    @Column
-    private String des3;  // 상품상세이미지 3
-
-    @Column
-    private String des4;  // 상품상세이미지 4*/
 }

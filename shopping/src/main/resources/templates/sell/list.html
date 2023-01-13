@@ -17,13 +17,14 @@
     <div class="row">
 
       <div class="card" style="width: 18rem;" th:each="sell : ${sellList}">
-        <th:block th:if="${sell.simage != null}">
-          <img th:src="@{/upload/photo/{name}(name=${sell.simage})}" width="300" class="card-img-top">
+        <th:block th:if="${sell.photo != null}">
+          <img th:src="@{/upload/photo/{name}(name=${sell.photo})}" width="300" class="card-img-top">
         </th:block>
         <div class="card-body">
           <h5 class="card-title" th:text="${sell.product}"></h5>
         </div>
         <ul class="list-group list-group-flush">
+          <li class="list-group-item">상품번호: <a th:text="${sell.sidx}"/></li>
           <li class="list-group-item">상품가격: <a th:text="${sell.price}"/></li>
           <li class="list-group-item">품절여부: <a th:text="${sell.sale ? '품절' : '판매중'}"/></li>
         </ul>
@@ -57,34 +58,7 @@
       <a href="/sell/write" class="btn btn-outline-warning">상품등록</a>
     </div>
 
-<!--
-<div class="container" style="margin-top:5px;">
 
-  <nav aria-label="">
-
-    <ul class="pagination" >
-
-      <th:block th:if="${listPage.prev}">
-        <li class="page-item">
-          <a class="page-link" th:href="@{/todo/list(p=${listPage.startNum-1})}">&laquo;</a>
-        </li>
-      </th:block>
-
-      <th:block th:each="num : ${#numbers.sequence(listPage.startNum, listPage.endNum)}" th:with="active=${listPage.pageNum==num?'active':''}">
-        <li class="page-item" th:classappend="${active}">
-          <a class="page-link" th:href="@{/todo/list(p=${num})}" th:text="${num}"></a>
-        </li>
-      </th:block>
-
-      <th:block th:if="${listPage.next}">
-        <li class="page-item">
-          <a class="page-link" th:href="@{/todo/list(p=${listPage.endNum+1})}">&raquo;</a>
-        </li>
-      </th:block>
-
-    </ul>
-  </nav>
-  </div>-->
 
   </div>
 

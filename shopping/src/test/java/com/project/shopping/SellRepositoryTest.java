@@ -1,6 +1,6 @@
 package com.project.shopping;
 
-import com.project.shopping.domain.SellWriteRequest;
+import com.project.shopping.domain.sell.SellWriteRequest;
 import com.project.shopping.entity.Sell;
 import com.project.shopping.repository.SellRepository;
 import lombok.extern.log4j.Log4j2;

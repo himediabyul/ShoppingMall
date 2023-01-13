@@ -1,20 +1,18 @@
-package com.project.shopping.service;
+package com.project.shopping.service.sell;
 
 import com.project.shopping.entity.Sell;
 import com.project.shopping.repository.SellRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SellListService {
+public class SellReadService {
 
     @Autowired
     private SellRepository sellRepository;
 
-    public Page<Sell> getList(Pageable pageable){
+    public Sell read(int sidx){
 
-        return sellRepository.findAll(pageable);
+        return sellRepository.findBySidx(sidx).get();
     }
 }
