@@ -23,7 +23,6 @@ public class SellWriteRequest {
     private MultipartFile des2;  // 상품상세이미지2
 
 
-
     public Sell toSellEntity(){
         return Sell.builder()
                 .product(product)

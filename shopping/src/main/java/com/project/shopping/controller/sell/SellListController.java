@@ -2,6 +2,7 @@ package com.project.shopping.controller.sell;
 
 import com.project.shopping.domain.sell.SearchType;
 import com.project.shopping.entity.Sell;
+import com.project.shopping.repository.SellRepository;
 import com.project.shopping.service.sell.SellListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ public class SellListController {
 
     @Autowired
     private SellListService listService;
+    @Autowired
+    private SellRepository sellRepository;
 
 
     @GetMapping("/sell/list")
@@ -35,13 +38,20 @@ public class SellListController {
         model.addAttribute("endPage", endPage);
 
     }
+    @GetMapping("/sell/search")
+    public String search(@PageableDefault(size = 10, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable, SearchType searchType, Model model){
 
-    public String search(SearchType searchType, Model model){
+        Page<Sell> searchList = listService.searchProduct(searchType,pageable);
 
-        List<Sell> searchList = listService.searchProduct(searchType);
+        int startPage = Math.max(0, searchList.getPageable().getPageNumber()-9);
+
+        int endPage = Math.min(searchList.getTotalPages(), searchList.getPageable().getPageNumber()+9);
+
 
         model.addAttribute("searchList", searchList);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
-        return "/todo/searchList";
+        return "/sell/searchList";
     }
 }

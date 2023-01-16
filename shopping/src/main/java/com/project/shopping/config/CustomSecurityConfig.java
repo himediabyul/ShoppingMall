@@ -1,4 +1,3 @@
-/*
 package com.project.shopping.config;
 
 
@@ -20,8 +19,8 @@ public class CustomSecurityConfig {
         http.csrf().disable();
 
         http.authorizeHttpRequests()
-                .antMatchers( "/buy/**").hasRole("USER")
-                .antMatchers("/admin/**", "/sell/**").hasRole("ADMIN")
+//                .antMatchers( "/sell/list","/sell/read","/join/**").hasRole("USER")
+//                .antMatchers("/sell/**", "/join/**").hasRole("ADMIN")
                 .anyRequest().permitAll();
 
 
@@ -44,16 +43,10 @@ public class CustomSecurityConfig {
 
     }
 
-*/
-/*    @Bean
-    public AuthenticationSuccessHandler successHandler(){
-        return new CustomLoginSuccessHandler() ;
-    }*//*
-
     @Bean
     public PasswordEncoder passwordEncoder(){
+
         return new BCryptPasswordEncoder();
     }
 
 }
-*/

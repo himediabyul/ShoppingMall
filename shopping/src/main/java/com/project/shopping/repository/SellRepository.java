@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -25,8 +24,8 @@ public interface SellRepository extends JpaRepository<Sell, Integer> {
     int deleteBySidx(Integer sidx);
 
 
-    List<Sell> findByProductContaining(String keyword);  // 상품명 으로 검색
+    Page<Sell> findByProductContaining(String keyword, Pageable pageable);  // 상품명 으로 검색
 
-    List<Sell> findByPriceContaining(String keyword);  // 가격 으로 검색
+    Page<Sell> findByPriceContaining(String keyword, Pageable pageable);  // 가격 으로 검색
 
 }

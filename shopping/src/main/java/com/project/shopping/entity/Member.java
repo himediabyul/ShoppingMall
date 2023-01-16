@@ -47,6 +47,9 @@ public class Member {
     @NotEmpty
     private String address3;  // 주소 (상세주소)
 
+    @Column
+    private String extra;  // 주소지 참고사항
+
     @Column(updatable = false)
     private String role;   // USER로 고정 INSERT
 

@@ -17,6 +17,8 @@ public class SellEditRequest {
     private String product;  // 상품명
     private String price;  // 판매금액
     private Integer qty;  // 재고수량
+
+    private boolean sale;
     private String oldFile;
     private String olddes1;
     private String olddes2;
@@ -38,6 +40,7 @@ public class SellEditRequest {
                 .des1(olddes1)
                 .des2(olddes2)
                 .qty(qty)
+                .sale(isSale())
                 .build();
     }
 

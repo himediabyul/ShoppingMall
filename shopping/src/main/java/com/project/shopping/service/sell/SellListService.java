@@ -21,16 +21,16 @@ public class SellListService {
         return sellRepository.findAll(pageable);
     }
 
-    public List<Sell> searchProduct(SearchType searchType){
+    public Page<Sell> searchProduct(SearchType searchType,Pageable pageable){
 
-        List<Sell> sellList = null;
+        Page<Sell> sellList = null;
 
         switch (searchType.getSearchOption()){
             case "product":
-                sellList = sellRepository.findByProductContaining(searchType.getKeyword());
+                sellList = sellRepository.findByProductContaining(searchType.getKeyword(), pageable);
                 break;
             case "price":
-                sellList = sellRepository.findByPriceContaining(searchType.getKeyword());
+                sellList = sellRepository.findByPriceContaining(searchType.getKeyword(), pageable);
                 break;
         }
 
