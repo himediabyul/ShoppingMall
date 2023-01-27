@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 @Service
@@ -18,52 +19,64 @@ public class SellWriteService {
     private SellRepository sellRepository;
 
     public void write(SellWriteRequest writeRequest, MultipartFile file,
-                      MultipartFile file1, MultipartFile file2) {
+                      MultipartFile file1) {
 
-        // 저장 경로
-        String absolutePath = new File("").getAbsolutePath();
-        String path = "photo";
-        File saveDir = new File(absolutePath, path);
+        file = writeRequest.getPhoto();
+        file1 = writeRequest.getDes1();
 
-        // 폴더가 존재하지 않으면 생성
-        if (!saveDir.exists()){
-            saveDir.mkdir();
+        File saveDir = null;
+        String newFileName = null;
+        String newFileName1 = null;
+
+        if(file != null && !file.isEmpty()) {
+
+            // 저장 경로
+            String absolutePath = new File("").getAbsolutePath();
+            String path = "photo";
+            saveDir = new File(absolutePath, path);
+
+            // 폴더가 존재하지 않으면 생성
+            if (!saveDir.exists()) {
+                saveDir.mkdir();
+            }
+            // 파일이름이 중복되지 않도록 밀리초를 붙여줌
+            newFileName = System.currentTimeMillis() + file.getOriginalFilename();  // 대표이미지
+
+            File newFile = new File(saveDir, newFileName);
+
+            try {
+                file.transferTo(newFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            if(file1 !=null && !file1.isEmpty()){
+
+                newFileName1 = System.currentTimeMillis() + file1.getOriginalFilename();  // 상세이미지
+
+                File newFile1 = new File(saveDir, newFileName1);
+
+                try {
+                    file1.transferTo(newFile1);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-        // 파일이름이 중복되지 않도록 밀리초를 붙여줌
-        String newFileName = System.currentTimeMillis()+file.getOriginalFilename();  // 대표이미지
-        String newFileName1 = System.currentTimeMillis()+file1.getOriginalFilename();  // 상세이미지
-        String newFileName2 = System.currentTimeMillis()+file2.getOriginalFilename();  // 상세이미지2
-
-        File newFile = new File(saveDir, newFileName);
-        File newFile1 = new File(saveDir, newFileName1);
-        File newFile2 = new File(saveDir, newFileName2);
-
-        try {
-            file.transferTo(newFile);
-            file1.transferTo(newFile1);
-            file2.transferTo(newFile2);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         // entity 에 저장
         Sell sell = writeRequest.toSellEntity();
 
 
-        if(newFileName != null || newFileName1 != null || newFileName2 != null) {
+        if(newFileName != null) {
             sell.setPhoto(newFileName);
-            sell.setDes1(newFileName1);
-            sell.setDes2(newFileName2);
-        } else {
-            sell.setPhoto(null);
-            sell.setDes1(null);
-            sell.setDes2(null);
+            if(newFileName1 != null){
+                sell.setDes1(newFileName1);
+            }
         }
 
         sellRepository.save(sell);
     }
 
 }
-
 
 

@@ -22,6 +22,7 @@
     <form method="post" enctype="multipart/form-data">
 
       <input type="hidden" name="sidx" th:value="${product.sidx}">
+      <input type="hidden" id="writer" name="writer" th:value="${#authentication.principal.member.uidx}" >
 
       <div class="mb-3">
         <label for="product" class="form-label">상품명</label>
@@ -32,29 +33,21 @@
         <input type="text" class="form-control" id="price" name="price" th:value="${product.price}">
       </div>
       <div class="mb-3">
-        <label for="qty" class="form-label">재고수량</label>
-        <input type="text" class="form-control" id="qty" name="qty" th:value="${product.qty}" readonly>
-      </div>
-      <div class="mb-3">
         <input type="hidden" name="oldFile" th:value="${product.photo}">
         <label for="newphoto" class="form-label">대표사진</label>
         <input type="file" class="form-control" id="newphoto" name="newphoto">
       </div>
-
       <div class="mb-3">
         <input type="hidden" name="olddes1" th:value="${product.des1}">
         <label for="newdes1" class="form-label">상세사진1</label>
         <input type="file" class="form-control" id="newdes1" name="newdes1">
       </div>
-
       <div class="mb-3">
-        <input type="hidden" name="olddes2" th:value="${product.des2}">
-        <label for="newdes2" class="form-label">상세사진2</label>
-        <input type="file" class="form-control" id="newdes2" name="newdes2">
+        <label for="description" class="form-label">상세설명</label>
+        <input type="text" class="form-control" id="description" name="description" th:value="${product.description}">
       </div>
-
       <div class="mb-3">
-        <label for="sale" class="form-label">품절처리</label>
+        <label for="sale" class="form-label">판매완료</label>
         <input type="checkbox" id="sale" name="sale" th:checked="${product.sale ? 'checked' : ''}">
       </div>
 

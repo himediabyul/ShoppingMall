@@ -2,6 +2,7 @@ package com.project.shopping.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @AllArgsConstructor
@@ -18,6 +19,10 @@ public class Sell {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sidx;  // 판매글번호
 
+    @ManyToOne
+    @JoinColumn(name = "writer")
+    private Member writer;
+
     @Column
     private String product;  // 상품명
 
@@ -25,7 +30,7 @@ public class Sell {
     private String price;  // 판매금액
 
     @Column
-    private Integer qty;  // 재고수량
+    private String description; // 상세내용
 
     @Column
     private boolean sale;  // 품절처리
@@ -36,7 +41,10 @@ public class Sell {
     @Column
     private String des1;  // 상품상세이미지 1
 
-    @Column
-    private String des2;  // 상품상세이미지 2
+    @Column(insertable = false, updatable = false)
+    private LocalDate regdate;  // 상품 등록일
+
+    @Column(insertable = false)
+    private LocalDate updatedate;  // 상품 수정일
 
 }

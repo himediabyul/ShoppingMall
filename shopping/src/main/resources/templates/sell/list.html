@@ -18,7 +18,7 @@
 
       <div class="card" style="width: 18rem;" th:each="sell : ${sellList}">
         <th:block th:if="${sell.photo != null}">
-          <img th:src="@{/upload/photo/{name}(name=${sell.photo})}" width="300" class="card-img-top">
+          <img th:src="@{/upload/photo/{name}(name=${sell.photo})}" width="350" height="300" class="card-img-top">
         </th:block>
         <div class="card-body">
           <h5 class="card-title" th:text="${sell.product}"></h5>
@@ -26,7 +26,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">상품번호: <a th:text="${sell.sidx}"/></li>
           <li class="list-group-item">상품가격: <a th:text="${sell.price}"/></li>
-          <li class="list-group-item">품절여부: <a th:text="${sell.sale ? '품절' : '판매중'}"/></li>
+          <li class="list-group-item">품절여부: <a th:text="${sell.sale ? '판매완료' : '판매중'}"/></li>
         </ul>
         <div class="card-body">
           <a th:href="@{/sell/read(sidx=${sell.sidx})}" class="card-link">상세보기</a>
@@ -42,17 +42,23 @@
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item" th:classappend="${1 == sellList.pageable.pageNumber + 1} ? 'disabled' : '' ">
-      <a class="page-link" th:href="@{/(page=${sellList.pageable.pageNumber - 1})}">Previous</a>
+    <li class="page-item" th:classappend="${i == sellList.pageable.pageNumber + 1} ? 'disabled' : '' ">
+      <a class="page-link" th:href="@{/sell/list(page=${sellList.pageable.pageNumber - 1})}">Previous</a>
     </li>
     <li class="page-item" th:classappend="${i == sellList.pageable.pageNumber + 1} ? 'active' : '' " th:each="i : ${#numbers.sequence(startPage, endPage)}">
-      <a class="page-link" th:href="@{/(page=${i - 1})}" th:text="${i}">1</a>
+      <a class="page-link" th:href="@{/sell/list(page=${i - 1})}" th:text="${i}">1</a>
     </li>
     <li class="page-item" th:classappend="${sellList.totalPages == sellList.pageable.pageNumber + 1} ? 'disabled' : '' ">
-      <a class="page-link" th:href="@{/(page=${sellList.pageable.pageNumber + 1})}">Next</a>
+      <a class="page-link" th:href="@{/sell/list(page=${sellList.pageable.pageNumber + 1})}">Next</a>
     </li>
   </ul>
 </nav>
+
+<!--<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+  <a th:if="${page != nowPage}" th:href="@{/sell/list(page = ${page - 1}, keyword = ${param.keyword})}" th:text="${page}"></a>
+  <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+</th:block>-->
+
 
     <div class="container">
       <a href="/sell/write" class="btn btn-outline-warning">상품등록</a>

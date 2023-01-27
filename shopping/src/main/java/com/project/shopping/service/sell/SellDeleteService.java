@@ -36,14 +36,7 @@ public class SellDeleteService {
             if(delFile1.exists()){
                 delFile1.delete();
             }
-        } else {
-            File delFile2 = new File(new File("").getAbsolutePath(),"photo"+File.separator+sell.getDes2());
-            log.info(delFile2.getAbsolutePath());
-            if(delFile2.exists()){
-                delFile2.delete();
-            }
         }
-
 
         return result;
     }

@@ -34,11 +34,10 @@ public class SellEditController {
     public String sellEdit(SellEditRequest editRequest,
                            @RequestPart(value="photo",required = false) MultipartFile file,
                            @RequestPart(value="des1",required = false) MultipartFile file1,
-                           @RequestPart(value="des2",required = false) MultipartFile file2,
                            RedirectAttributes redirectAttributes){
 
         redirectAttributes.addAttribute("sidx", editRequest.getSidx());
-        editService.edit(editRequest,file,file1,file2);
+        editService.edit(editRequest,file,file1);
 
         return "redirect:/sell/list";
     }

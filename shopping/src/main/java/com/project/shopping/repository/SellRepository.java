@@ -23,7 +23,6 @@ public interface SellRepository extends JpaRepository<Sell, Integer> {
     @Query("delete from Sell s where s.sidx = :sidx")  // 삭제
     int deleteBySidx(Integer sidx);
 
-
     Page<Sell> findByProductContaining(String keyword, Pageable pageable);  // 상품명 으로 검색
 
     Page<Sell> findByPriceContaining(String keyword, Pageable pageable);  // 가격 으로 검색

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -21,7 +22,8 @@ public class SellListService {
         return sellRepository.findAll(pageable);
     }
 
-    public Page<Sell> searchProduct(SearchType searchType,Pageable pageable){
+    @Transactional
+    public Page<Sell> searchProduct(SearchType searchType,Pageable pageable, int pagenum){
 
         Page<Sell> sellList = null;
 
@@ -36,5 +38,7 @@ public class SellListService {
 
         return sellList;
     }
+
+
 
 }

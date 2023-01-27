@@ -2,6 +2,11 @@ package com.project.shopping.domain.member;
 
 import com.project.shopping.entity.Member;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,10 +17,15 @@ import lombok.*;
 public class MemberJoinRequest {
 
     private Integer uidx;  // 회원번호
+
     private String uid;  // 회원아이디
-    private String pw;  // 비밀번호
-    private String name;  // 이름
+
+    private String password;  // 비밀번호
+
+    private String username;  // 이름
+
     private String email;  // 이메일
+
     private String address1;  // 주소 (우편번호)
     private String address2;  // 주소 (검색주소)
     private String address3;  // 주소 (상세주소)
@@ -26,8 +36,8 @@ public class MemberJoinRequest {
     public Member toMemberEntity(){
         return Member.builder()
                 .uid(uid)
-                .pw(pw)
-                .name(name)
+                .password(password)
+                .username(username)
                 .email(email)
                 .address1(address1)
                 .address2(address2)

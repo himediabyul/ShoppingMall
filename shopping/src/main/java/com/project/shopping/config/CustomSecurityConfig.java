@@ -1,7 +1,6 @@
 package com.project.shopping.config;
 
 
-import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@Log4j2
 public class CustomSecurityConfig {
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -24,9 +23,11 @@ public class CustomSecurityConfig {
                 .anyRequest().permitAll();
 
 
-        // form 로그인 페이지에 대한 설정 , 성공시 처리 핸들러 등록
-        http.formLogin().defaultSuccessUrl("/");
-        // /auth/login 요청의 페이지는 사용자가 직접 만든 페이지
+        // form 로그인 페이지에 대한 설정
+        http.formLogin()
+                .loginPage("/member/login")
+                .defaultSuccessUrl("/");
+//                .failureUrl("/member/login/error");
 
 
         // 로그아웃

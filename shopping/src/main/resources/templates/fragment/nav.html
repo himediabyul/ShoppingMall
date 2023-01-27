@@ -11,7 +11,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="/sell/list">ALL</a>
 
-        <!--        <a class="nav-link" href="#"> </a>
+<!--                <a class="nav-link" href="#"> </a>
                 <a class="nav-link" href="#"> </a>
                 <a class="nav-link disabled"> </a>-->
       </div>
@@ -33,7 +33,7 @@
     </form>
 
     <ul>
-      <span sec:authorize="isAuthenticated()">name: <span sec:authentication="principal.member.name"></span></span><br>
+      <span sec:authorize="isAuthenticated()">name: <span sec:authentication="principal.member.username"></span></span><br>
       <span sec:authorize="isAuthenticated()">id: <span sec:authentication="principal.member.uid"></span></span>
     </ul>
   </div>
@@ -41,14 +41,14 @@
   <div class="col-1" >
     <ul>
 
-<!--      <span sec:authorize="hasRole('USER')">
+      <span sec:authorize="hasRole('USER')">
             <a class="btn btn-outline-secondary" href="/member/info">내정보</a>
         </span>
       <span sec:authorize="hasRole('ADMIN')">
-            <a class="btn btn-outline-secondary" href="/admin/list">회원리스트</a>
-          </span>-->
+            <a class="btn btn-outline-secondary" href="/member/list">회원리스트</a>
+          </span>
       <span sec:authorize="isAuthenticated()"><a class="btn btn-outline-secondary" href="/auth/logout">로그아웃</a></span>
-      <span sec:authorize="!isAuthenticated()"><a class="btn btn-outline-secondary" href="/login">로그인</a></span>
+      <span sec:authorize="!isAuthenticated()"><a class="btn btn-outline-secondary" href="/member/login">로그인</a></span>
       <span sec:authorize="!isAuthenticated()"><a class="btn btn-outline-secondary" href="/member/join">회원가입</a></span>
 
     </ul>

@@ -3,7 +3,9 @@ package com.project.shopping.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,11 +27,11 @@ public class Member {
 
     @Column
     @NotEmpty
-    private String pw;  // 비밀번호
+    private String password;  // 비밀번호
 
     @Column
-    @NotEmpty
-    private String name;  // 이름
+    @NotBlank
+    private String username;  // 이름
 
     @Column
     @NotEmpty
@@ -53,6 +55,10 @@ public class Member {
     @Column(updatable = false)
     private String role;   // USER로 고정 INSERT
 
+    @Column
+    private LocalDateTime joindate; // 가입일
 
-}
+    }
+
+
 

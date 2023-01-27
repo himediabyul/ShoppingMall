@@ -1,6 +1,7 @@
 package com.project.shopping.domain.sell;
 
 
+import com.project.shopping.entity.Member;
 import com.project.shopping.entity.Sell;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,32 +15,32 @@ import org.springframework.web.multipart.MultipartFile;
 public class SellEditRequest {
 
     private Integer sidx;
+    private Integer writer;  // 작성자
     private String product;  // 상품명
     private String price;  // 판매금액
-    private Integer qty;  // 재고수량
+
+    private String description;
 
     private boolean sale;
     private String oldFile;
     private String olddes1;
-    private String olddes2;
 
     private MultipartFile newphoto;  // 상품대표이미지
 
     private MultipartFile newdes1;  // 상품상세이미지
 
-    private MultipartFile newdes2;  // 상품상세이미지2
 
 
 
     public Sell toSellEntity(){
         return Sell.builder()
                 .sidx(sidx)
+                .writer(Member.builder().uidx(writer).build())
                 .product(product)
                 .price(price)
+                .description(description)
                 .photo(oldFile)
                 .des1(olddes1)
-                .des2(olddes2)
-                .qty(qty)
                 .sale(isSale())
                 .build();
     }
