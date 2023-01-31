@@ -18,6 +18,8 @@ public class SellReadController {
     public void readProduct(int sidx, Model model, @AuthenticationPrincipal CustomMember customMember){
 
         model.addAttribute("product", readService.read(sidx));
-        model.addAttribute("sidx", customMember.getMember().getUidx());
+
+        // 현재 로그인 한 사용자의 정보를 가지고 있는 객체
+        model.addAttribute("midx", customMember.getMember().getUidx());
     }
 }

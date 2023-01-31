@@ -20,11 +20,11 @@ public class ReplyController {
 
     // sidx로 받기
     @GetMapping(value = "/{sidx}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Reply>> replyList(@PathVariable("sidx") int sidx){
+    public List<Reply> replyList(@PathVariable("sidx") int sidx){
 
         List<Reply> list = replyService.allList(sidx);
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return list;
     }
 
     // post /reply => reply    JSON 데이터를 받아서 DB insert

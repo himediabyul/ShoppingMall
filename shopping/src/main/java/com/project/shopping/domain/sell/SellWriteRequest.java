@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class SellWriteRequest {
 
     private Integer writer;  // 작성자
+
+    private String category;  // 카테고리
     private String product;  // 상품명
     private String price;  // 판매금액
     private String description; // 상세내용
@@ -26,6 +28,7 @@ public class SellWriteRequest {
     public Sell toSellEntity(){
         return Sell.builder()
                 .writer(Member.builder().uidx(writer).build())
+                .category(category)
                 .product(product)
                 .price(price)
                 .description(description)

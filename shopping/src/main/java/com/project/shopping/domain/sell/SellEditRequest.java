@@ -16,6 +16,8 @@ public class SellEditRequest {
 
     private Integer sidx;
     private Integer writer;  // 작성자
+
+    private String category;  // 카테고리
     private String product;  // 상품명
     private String price;  // 판매금액
 
@@ -36,6 +38,7 @@ public class SellEditRequest {
         return Sell.builder()
                 .sidx(sidx)
                 .writer(Member.builder().uidx(writer).build())
+                .category(category)
                 .product(product)
                 .price(price)
                 .description(description)

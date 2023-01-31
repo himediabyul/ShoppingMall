@@ -17,13 +17,15 @@ public class SellListService {
     @Autowired
     private SellRepository sellRepository;
 
+    // 전체 리스트
     public Page<Sell> getList(Pageable pageable){
 
         return sellRepository.findAll(pageable);
     }
 
+    // 검색 결과 리스트
     @Transactional
-    public Page<Sell> searchProduct(SearchType searchType,Pageable pageable, int pagenum){
+    public Page<Sell> searchProduct(SearchType searchType,Pageable pageable){
 
         Page<Sell> sellList = null;
 
@@ -40,5 +42,9 @@ public class SellListService {
     }
 
 
+    // 카테고리 별 리스트
+    public Page<Sell> cateList(String category, Pageable pageable){
 
+        return sellRepository.findByCategory(category,pageable);
+    }
 }

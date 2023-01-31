@@ -2,7 +2,6 @@ package com.project.shopping.controller.sell;
 
 import com.project.shopping.domain.sell.SearchType;
 import com.project.shopping.entity.Sell;
-import com.project.shopping.repository.SellRepository;
 import com.project.shopping.service.sell.SellListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 
 @Controller
 public class SellListController {
@@ -26,7 +24,7 @@ public class SellListController {
 
         Page<Sell> sells = listService.getList(pageable);
 
-        int startPage = Math.max(1, sells.getPageable().getPageNumber()-5);
+        int startPage = Math.max(0, sells.getPageable().getPageNumber()-5);
 
         int endPage = Math.min(sells.getTotalPages(), sells.getPageable().getPageNumber()+5);
 
@@ -37,11 +35,11 @@ public class SellListController {
     }
 
     @GetMapping("/sell/search")
-    public String search(@PageableDefault(size = 8, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable, SearchType searchType, Model model, @RequestParam(value = "page", defaultValue = "0") int pagenum){
+    public String search(@PageableDefault(size = 8, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable, SearchType searchType, Model model){
 
-        Page<Sell> searchList = listService.searchProduct(searchType,pageable,pagenum);
+        Page<Sell> searchList = listService.searchProduct(searchType,pageable);
 
-        int startPage = Math.max(1, searchList.getPageable().getPageNumber()-5);
+        int startPage = Math.max(0, searchList.getPageable().getPageNumber()-5);
 
         int endPage = Math.min(searchList.getTotalPages(), searchList.getPageable().getPageNumber()+5);
 
@@ -53,30 +51,21 @@ public class SellListController {
 
         return "/sell/searchList";
     }
-  /*@GetMapping("/sell/list")
-  public String sellList(Model model,SearchType searchType, @PageableDefault(size = 8, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable){
 
-      Page<Sell> list = null;
+    @GetMapping("/sell/category")
+    public void getCateList(@PageableDefault(size = 8, sort = "sidx", direction = Sort.Direction.DESC) Pageable pageable, Model model,
+                            @RequestParam(value = "category", defaultValue = "") String category){
 
-      if(searchType.getKeyword() == null){
-          list = listService.getList(pageable);
-      } else {
-          list = listService.searchProduct(searchType,pageable);
-      }
+        Page<Sell> categoryList = listService.cateList(category,pageable);
 
-      int nowPage = list.getPageable().getPageNumber()+1;
-      int startPage = Math.max(1, list.getPageable().getPageNumber()-4);
-      int endPage = Math.min(list.getTotalPages(), list.getPageable().getPageNumber()+4);
+        int startPage = Math.max(0, categoryList.getPageable().getPageNumber()-5);
 
+        int endPage = Math.min(categoryList.getTotalPages(), categoryList.getPageable().getPageNumber()+5);
 
-      model.addAttribute("sellList", list);
-      model.addAttribute("keyword", searchType.getKeyword());
-      model.addAttribute("nowPage", nowPage);
-      model.addAttribute("startPage", startPage);
-      model.addAttribute("endPage", endPage);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("category", category);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
-      return "/sell/list";
-
-  }*/
-
+    }
 }

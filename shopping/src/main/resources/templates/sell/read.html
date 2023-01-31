@@ -1,304 +1,244 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en-US">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>상품 상세</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOR EARTH | VIEW PRODUCT</title>
+	<link rel='stylesheet' href='/css/woocommerce-layout.css' type='text/css' media='all'/>
+	<link rel='stylesheet' href='/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
+	<link rel='stylesheet' href='/css/woocommerce.css' type='text/css' media='all'/>
+	<link rel='stylesheet' href='/css/font-awesome.min.css' type='text/css' media='all'/>
+	<link rel='stylesheet' href='/style.css' type='text/css' media='all'/>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
+	<link rel='stylesheet' href='/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
+<body class="single single-product woocommerce woocommerce-page">
+<div id="page">
+	<div class="container">
+		<header id="masthead" class="site-header">
+			<div class="site-branding">
+				<div class="col-1" style="margin-left: 1000px" >
+					<ul>
+      				<span sec:authorize="hasRole('USER')">
+            		<a href="/member/info">내정보</a>
+        			</span>
+						<span sec:authorize="hasRole('ADMIN')">
+            		<a href="/member/list">회원리스트</a>
+          			</span>
+						<br/>
+						<span sec:authorize="isAuthenticated()"><a href="/auth/logout">로그아웃</a></span>
+						<span sec:authorize="!isAuthenticated()"><a href="/member/login">로그인</a></span>
+						<span sec:authorize="!isAuthenticated()"><a href="/member/join">회원가입</a></span>
+					</ul>
+					<ul>
+						<span sec:authorize="isAuthenticated()">name: <span sec:authentication="principal.member.username"></span></span><br>
+					</ul>
+				</div>
+				<h3 class="site-title"><a href="/" rel="home">FOR Earth [Recycle]</a></h3>
+				<h3 class="site-description">중고 거래 플랫폼</h3>
 
-<body>
+			</div>
+			<nav id="site-navigation" class="main-navigation">
+				<button class="menu-toggle">Menu</button>
+				<a class="skip-link screen-reader-text" href="#">Skip to content</a>
+				<div class="menu-menu-1-container">
+					<ul id="menu-menu-1" class="menu">
+						<li><a href="/">홈</a></li>
+						<li><a href="/sell/list">전체</a></li>
+						<li><a th:href="@{/sell/category(category=${'의류'})}">의류</a></li>
+						<li><a th:href="@{/sell/category(category=${'생활용품'})}">생활용품</a></li>
+						<li><a th:href="@{/sell/category(category=${'애완용품'})}">애완용품</a></li>
+						<li><a th:href="@{/sell/category(category=${'전자제품'})}">전자제품</a></li>
+						<li><a th:href="@{/sell/category(category=${'기타'})}">기타</a></li>
+
+						<li style="margin-left: 80px">
+							<form action="/sell/search" method="get" class="d-flex" role="search">
+								<select name="searchOption">
+									<option value="product">상품명</option>
+									<option value="price">금액</option>
+								</select>
+								<input type="text" name="keyword" placeholder="search" aria-label="Search">
+								<button type="submit">search</button>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<!-- #masthead -->
+		<div id="content" class="site-content">
+			<div id="primary" class="content-area column full">
+				<main id="main" class="site-main" role="main">
+				<div id="container">
+					<div id="content" role="main">
+						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb"><a href="/">Home</a> / <a th:text="${product.category}" th:href="@{/sell/category(category=${product.category})}"/> / <a th:text="${product.product}" /></nav>
+						<div itemscope itemtype="http://schema.org/Product" class="product">
+							<div class="images">
+								<a href="" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">
+								<th:block th:if="${product.photo != null}">
+								<img th:src="@{/upload/photo/{name}(name=${product.photo})}" width=300px>
+								</th:block>
+								</a>
+							</div>
+							<div class="summary entry-summary">
+								<h1 itemprop="name" class="product_title entry-title" th:text="${product.product}" />
+								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<p class="price">
+										<span class="amount"><a th:text="${product.price}" /></span>
+									</p>
+								</div>
+								<div itemprop="description">
+									<p>
+										<h6>상품분류: <a th:text="${product.category}"/></h6>
+										<h6>판매자: <a th:text="${product.writer.uid}"/></h6>
+										<h6>등록일: <a th:text="${product.regdate}"/></h6>
+									</p>
+								</div>
+
+							</div>
+							<!-- .summary -->
+							<div class="woocommerce-tabs wc-tabs-wrapper">
+									<div class="panel entry-content wc-tab" id="tab-description">
+									<h3>상품 상세</h3>
+									<p>
+										<h5 th:text="${product.description}"/>
+										<th:block th:if="${product.des1 != null}">
+											<img th:src="@{/upload/photo/{name}(name=${product.des1})}">
+										</th:block>
+									</p>
+								</div>
+
+								<div class="container">
+									<th:block th:if="${#authentication.principal.member.uidx} == ${product.writer.uidx}">
+										<a class="wpcmsdev-button color-yellow" th:href="@{/sell/edit(sidx=${product.sidx})}"> 수정</a>
+										<a class="wpcmsdev-button color-red" th:onclick="'deleteProduct('+${product.sidx}+')'">삭제</a>
+									</th:block>
+									<a th:href="@{/sell/list}">돌아가기</a>
+								</div>
 
 
-<!--  nav 영역 시작-->
-<div th:replace="fragment/nav"></div>
+								<div class="panel entry-content wc-tab" id="tab-reviews">
+									<div id="reviews">
+										<div id="comments">
+											<h2>comment</h2>
+											<ol class="commentlist">
+												<li class="comment">
+												<div id="replyList" class="comment_container"/>
+												</li>
+											</ol>
+										</div>
+										<div id="review_form_wrapper">
+											<div id="review_form">
+												<div id="respond" class="comment-respond">
+													<h3 style="margin-bottom:10px;" id="reply-title" class="comment-reply-title">댓글 작성<small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
+														<p class="comment-form-comment">
+															<textarea id="reply" name="comment" cols="45" rows="8" aria-required="true"></textarea>
+														</p>
+														<p class="comment-form-author">
+															<label class="form-label">작성자 <span class="required">*</span></label>
+															<input type="text" th:value="${#authentication.principal.member.uid}" readonly/>
+															<input type="hidden" class="form-control" id="replyer"
+																   th:value="${#authentication.principal.member.uidx}">
+														</p>
+														<p class="form-submit">
+															<input name="submit" type="submit" id="btn_reply" class="submit" value="등록"/>
+														</p>
+												</div>
+												<!-- #respond -->
+											</div>
+										</div>
+										<div class="clear">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</main>
+				<!-- #main -->
+			</div>
+			<!-- #primary -->
+		</div>
+		<!-- #content -->
+	</div>
+	<!-- .container -->
+	<!-- 댓글 수정 Modal -->
+	<div class="modal fade" id="replyEditModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+		 aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">댓글 수정</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label class="form-label">작성자</label>
+						<input type="text" class="form-control" id="ereplyerName" readonly>
+						<input type="hidden" id="ereplyer">
+						<input type="hidden" id="erno">
+						<input type="hidden" id="ereplydate">
+					</div>
+					<div class="mb-3">
+						<label class="form-label">내용</label>
+						<textarea class="form-control" rows="3" id="ereply"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="btn_edit" class="btn btn-primary">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="colophon" class="site-footer">
+	<div class="container">
+		<div class="site-info">
+			<h3 style="font-family: 'Herr Von Muellerhoff';color: #ccc;font-weight:300;text-align: center;margin-bottom:0;margin-top:0;line-height:1.4;font-size: 46px;">FOR EARTH</h3>
+			Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-4">
-            <th:block th:if="${product.photo != null}">
-            <img th:src="@{/upload/photo/{name}(name=${product.photo})}" width="500px">
-            </th:block>
-        </div>
-
-        <div class="card" col-6>
-            <div class="card-header">
-                상품명: <h2 th:text="${product.product}"></h2>
-                상세설명: <h5 th:text="${product.description}"></h5>
-                판매금액: <h5 th:text="${product.price}"></h5>
-                판매자: <h6 th:text="${product.writer.uid}"></h6> 등록일: <h6 th:text="${product.regdate}"></h6>
-            </div>
-        </div>
-    </div>
+		</div>
+	</div>
+	</footer>
+	<a href="#top" class="smoothup" title="Back to top"><span class="genericon genericon-collapse"></span></a>
 </div>
+<!-- #page -->
+<script src='js/jquery.js'></script>
+<script src='js/plugins.js'></script>
+<script src='js/scripts.js'></script>
+<script src='js/masonry.pkgd.min.js'></script>
 
-<div class="container">
+<!-- 게시물 삭제 -->
+<script>
 
-    <div>
-        <th:block th:if="${product.des1 != null}">
-            <img th:src="@{/upload/photo/{name}(name=${product.des1})}">
-        </th:block>
-    </div>
+	function deleteProduct(sidx) {
 
-</div>
+		if (confirm("삭제하시겠습니까?")) {
 
-<div class="container">
-<a class="btn btn-outline-warning" th:href="@{/sell/edit(sidx=${product.sidx})}"> 수정</a>
-<a class="btn btn-outline-danger" th:onclick="'deleteProduct('+${product.sidx}+')'">삭제</a>
-<a class="btn btn-outline-secondary" th:href="@{/sell/list}">돌아가기</a>
-</div>
+			location.href = '/sell/delete?sidx=' + sidx;
 
-<!-- 댓글 영역 시작 -->
+		}
 
-<div class="container">
+	}
 
-<div class="card m-2 my-2">
-    <div class="card-header">
-        댓글
-    </div>
-    <div class="card-body">
-        <!--댓글 작성 영역-->
-        <div class="p-3 border-bottom">
-            <h5 class="title my-2">댓글 작성</h5>
-            <div class="mb-3">
-                <label class="form-label">작성자</label>
-                <input type="text" class="form-control" th:value="${#authentication.principal.member.uid}"
-                       readonly>
-                <input type="hidden" class="form-control" id="replyer"
-                       th:value="${#authentication.principal.member.uidx}">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">내용</label>
-                <textarea class="form-control" rows="3" id="reply"></textarea>
-            </div>
-            <div class="mb-3">
-                <input type="submit" value="등록" id="btn_reply" class="form-control btn btn-primary">
-            </div>
-        </div>
+</script>
 
-
-        <!--댓글 리스트 영역-->
-        <table class="table">
-            <tbody id="replyList">
-
-            </tbody>
-        </table>
-
-
-    </div>
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="replyEditModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">댓글 수정</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">작성자</label>
-                    <input type="text" class="form-control" id="ereplyerName" readonly>
-                    <input type="hidden" id="ereplyer">
-                    <input type="hidden" id="erno">
-                    <input type="hidden" id="ereplydate">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">내용</label>
-                    <textarea class="form-control" rows="3" id="ereply"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-
-                <button type="button" id="btn_edit" class="btn btn-primary">수정</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
+<!-- 댓글 js-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
 
 <script th:inline="javascript">
 
-    var sidx = [[${product.sidx}]]
-    var uidx = [[${uidx}]]
+	var sidx = [[${product.sidx}]]
+	var midx = [[${midx}]]
 
 </script>
 
 <script src="/js/reply_jquery.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<!--
-<script>
-    let replyList;
-    let myModal;
-    document.addEventListener('DOMContentLoaded', () => {
-        myModal = new bootstrap.Modal('#replyEditModal', {
-            keyboard: false
-        })
-        replyList = document.querySelector('#replyList')
-        const btn_reply = document.querySelector('#btn_reply')
-        const btn_editreply = document.querySelector('#btn_editreply')
-        btn_editreply.addEventListener('click', () => {
-            editReply()
-        })
-        // 리스트 SET
-        setList()
-        ////////////////////////////////////
-        btn_reply.addEventListener('click', ()=>{
-            insertReply()
-        })
-    })
-    function insertReply(){
-        const payload = {
-            bno : ${param.bno},
-            reply : document.querySelector("#reply").value,
-            replyer : document.querySelector("#replyer").value,
-        }
-        console.log(payload)
-        // 비동기 통신 : 댓글 등록
-        axios.post('/reply', payload)
-            .then(res => {
-                console.log('res', res.data)
-                const newReply = res.data
-                //const tr_length = document.querySelectorAll('#replyList>tr').length
-                //const trIndex = Number(document.querySelectorAll('#replyList>tr')[tr_length-1].getAttribute('tr-index'))+1
-                const newTR = document.createElement('tr')
-                let str = '' // '<td class="col-1">'+newReply.rno+'</td>'
-                str += '<td class="col-2">'+newReply.replyer+'</td>'
-                str += '<td class="col">'+newReply.reply+'</td>'
-                str += '<td class="col-2">'+newReply.replydate+'</td>'
-                str += '<td class="col-2">' +
-                    '<a href="javascript: showEditModal('+newReply.rno+')" class="badge bg-warning text-decoration-none">edit</a> ' +
-                    '<a href="javascript: delTR('+newReply.rno+')" class="badge bg-danger text-decoration-none">delete</a>' +
-                    '</td>'
-                newTR.innerHTML = str
-                newTR.setAttribute('class', 'fs-6 text-center')
-                newTR.setAttribute('tr-index', newReply.rno)
-                replyList.appendChild(newTR)
-                document.querySelector("#reply").value = ''
-                document.querySelector("#replyer").value = ''
-            })
-            .catch(err => console.log(err))
-    }
-    function editReply(){
-        const payload = {
-            bno : ${param.bno},
-            rno :  document.querySelector("#erno").value,
-            reply : document.querySelector("#editreply").value,
-            replyer : document.querySelector("#editreplyer").value,
-            replydate : document.querySelector("#editreplydate").value,
-        }
-        console.log(payload)
-        // 비동기 통신 : 댓글 등록
-        axios.put('/reply/'+payload.rno, payload)
-            .then(res => {
-                console.log('res', res.data)
-                const newReply = res.data
-                const editTR = document.querySelector('tr[tr-index="'+payload.rno+'"]')
-                let str = '' // '<td class="col-1">'+newReply.rno+'</td>'
-                str += '<td class="col-2">'+newReply.replyer+'</td>'
-                str += '<td class="col">'+newReply.reply+'</td>'
-                str += '<td class="col-2">'+newReply.replydate+'</td>'
-                str += '<td class="col-2">' +
-                    '<a href="javascript: showEditModal('+newReply.rno+')" class="badge bg-warning text-decoration-none">edit</a> ' +
-                    '<a href="javascript: delTR('+newReply.rno+')" class="badge bg-danger text-decoration-none">delete</a>' +
-                    '</td>'
-                editTR.innerHTML = str
-                /*editTR.setAttribute('class', 'fs-6 text-center')
-                editTR.setAttribute('tr-index', newReply.rno)
-                replyList.appendChild(newTR)*/
-                document.querySelector("#editreply").value = ''
-                document.querySelector("#editreplyer").value = ''
-                myModal.hide()
-            })
-            .catch(err => console.log(err))
-    }
-    function setList(){
-        // 비동기 통신 : 댓글 리스트 가져오기
-        axios.get('/reply')
-            .then(res => {
-                console.log('res', res.data)
-                // 태그 캐스팅 -> 데이터 변경
-                addReplyRow(res.data)
-            })
-            .catch(err => console.log(err))
-    }
-    function showEditModal(rno){
-        myModal.show();
-        const selectedTD = document.querySelectorAll('tr[tr-index="'+rno+'"] > td')
-        console.log(selectedTD[0].textContent)
-        console.log(selectedTD[1].textContent)
-        console.log(selectedTD[2].textContent)
-        document.querySelector('#erno').value = rno
-        document.querySelector('#editreplyer').value = selectedTD[0].textContent
-        document.querySelector('#editreply').value = selectedTD[1].textContent
-        document.querySelector('#editreplydate').value = selectedTD[2].textContent
-    }
-    function addReplyRow(list){
-        console.log(`결과가 ${list}`)
-        list.forEach((reply, index) => {
-            const newTR = document.createElement('tr')
-            let str = '' // <td class="col-1">'+reply.rno+'</td>'
-            str += '<td class="col-2">'+reply.replyer+'</td>'
-            str += '<td class="col">'+reply.reply+'</td>'
-            str += '<td class="col-2">'+reply.replydate+'</td>'
-            str += '<td class="col-2">' +
-                '<a href="javascript: showEditModal('+reply.rno+')" class="badge bg-warning text-decoration-none">edit</a> ' +
-                '<a href="javascript: delTR('+reply.rno+')" class="badge bg-danger text-decoration-none">delete</a>' +
-                '</td>'
-            newTR.innerHTML = str
-            newTR.setAttribute('class', 'fs-6 text-center')
-            newTR.setAttribute('tr-index', reply.rno)
-            replyList.appendChild(newTR)
-        });
-    }
-    function delTR(index){
-        console.log('index', index)
-        if(!confirm('댓글을 삭제하시겠습니까?')){
-            return;
-        }
-        // 비동기 통신 : 데이터 삭제
-        axios.delete('/reply/'+index)
-            .then(res => {
-                console.log('res', res.data)
-                // 화면에서 행 삭제
-                const delTR = document.querySelector('tr[tr-index="'+index+'"]')
-                replyList.removeChild(delTR)
-            })
-            .catch(err => console.log(err))
-    }
-</script>-->
-
-
-<script>
-
-    function deleteProduct(sidx) {
-
-        if (confirm("삭제하시겠습니까?")) {
-
-            location.href = '/sell/delete?sidx=' + sidx;
-
-        }
-
-    }
-
-</script>
-
 
 </body>
 </html>

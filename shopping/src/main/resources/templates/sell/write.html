@@ -29,6 +29,18 @@
         <input type="text" class="form-control" th:value="${#authentication.principal.member.uid}" readonly>
         <input type="hidden" id="writer" name="writer" th:value="${#authentication.principal.member.uidx}" >
       </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label">카테고리</label>
+        <select name="category" id="category" class="form-control">
+          <option value="의류">의류</option>
+          <option value="생활용품">생활용품</option>
+          <option value="애완용품">애완용품</option>
+          <option value="전자제품">전자제품</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+
       <div class="mb-3">
         <label for="product" class="form-label">상품명</label>
         <input type="text" class="form-control" id="product" name="product">

@@ -19,13 +19,12 @@ public class SellRepositoryTest {
     private SellRepository sellRepository;
 
     // 판매글 등록 테스트
-    @Test
+/*    @Test
     public void writeTest () {
 
         SellWriteRequest writeRequest = SellWriteRequest.builder()
                 .product("롱원피스")
                 .price("40,000")
-                .qty(100)
                 .build();
 
         Sell sell = writeRequest.toSellEntity();
@@ -47,6 +46,19 @@ public class SellRepositoryTest {
         for(Sell sell : page.getContent()){
             log.info(sell);
         }
-    }
+    }*/
 
+    @Test
+    public void categoryTest(){
+
+        Page<Sell> page = sellRepository.findByCategoryContaining(1,PageRequest.of(0,2));
+
+        long total = page.getTotalElements();
+
+        log.info("카테고리 리스트 테스트 >>> " + total);
+
+        for(Sell sell : page.getContent()){
+            log.info(sell);
+        }
+    }
 }

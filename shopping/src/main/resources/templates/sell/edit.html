@@ -25,6 +25,17 @@
       <input type="hidden" id="writer" name="writer" th:value="${#authentication.principal.member.uidx}" >
 
       <div class="mb-3">
+        <label for="category" class="form-label">카테고리</label>
+        <select name="category" id="category" class="form-control">
+          <option value="1">의류</option>
+          <option value="2">생활용품</option>
+          <option value="3">애완용품</option>
+          <option value="4">전자제품</option>
+          <option value="5">기타</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
         <label for="product" class="form-label">상품명</label>
         <input type="text" class="form-control" id="product" name="product" th:value="${product.product}">
       </div>

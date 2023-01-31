@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">FOR BEAUTY</a>
+    <a class="navbar-brand" href="/">FOR Earth [Recycle]</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/sell/list">ALL</a>
-
-<!--                <a class="nav-link" href="#"> </a>
-                <a class="nav-link" href="#"> </a>
-                <a class="nav-link disabled"> </a>-->
+        <a class="nav-link active" aria-current="page" href="/sell/list">전체</a>
+        <a class="nav-link" aria-current="page" th:href="@{/sell/category(category=${'의류'})}">의류</a>
+        <a class="nav-link" aria-current="page" th:href="@{/sell/category(category=${'생활용품'})}">생활용품</a>
+        <a class="nav-link" aria-current="page" th:href="@{/sell/category(category=${'애완용품'})}">애완용품</a>
+        <a class="nav-link" aria-current="page" th:href="@{/sell/category(category=${'전자제품'})}">전자제품</a>
+        <a class="nav-link" aria-current="page" th:href="@{/sell/category(category=${'기타'})}">기타</a>
       </div>
 
     </div>

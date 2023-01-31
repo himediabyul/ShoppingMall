@@ -19,6 +19,9 @@ public class Sell {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sidx;  // 판매글번호
 
+    @Column
+    private String category;  // 카테고리
+
     @ManyToOne
     @JoinColumn(name = "writer")
     private Member writer;

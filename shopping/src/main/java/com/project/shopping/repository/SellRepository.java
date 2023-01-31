@@ -16,6 +16,8 @@ public interface SellRepository extends JpaRepository<Sell, Integer> {
 
     Page<Sell> findAll(Pageable pageable);  // list paging
 
+    Page<Sell> findByCategory(String category, Pageable pageable);
+
     Optional<Sell> findBySidx(Integer sidx);  // sidx로 선택
 
     @Transactional
