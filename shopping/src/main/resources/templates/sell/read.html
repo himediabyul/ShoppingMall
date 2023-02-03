@@ -111,7 +111,7 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 									</p>
 								</div>
 
-								<div class="container">
+								<div class="container" style="margin-top: 10px;margin-bottom: 10px;">
 									<th:block th:if="${#authentication.principal.member.uidx} == ${product.writer.uidx}">
 										<a class="wpcmsdev-button color-yellow" th:href="@{/sell/edit(sidx=${product.sidx})}"> 수정</a>
 										<a class="wpcmsdev-button color-red" th:onclick="'deleteProduct('+${product.sidx}+')'">삭제</a>

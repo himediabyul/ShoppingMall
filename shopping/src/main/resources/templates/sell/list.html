@@ -73,7 +73,7 @@
 
 				<ul class="products">
 				
-					<li class="first product" th:each="sell : ${sellList}">
+					<li class="product" th:each="sell : ${sellList}">
 					<a th:href="@{/sell/read(sidx=${sell.sidx})}">
 <!--					<span class="onsale">Sale!</span>-->
 					<th:block th:if="${sell.photo != null}">

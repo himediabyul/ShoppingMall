@@ -73,7 +73,7 @@
 
           <ul class="products">
 
-            <li class="first product" th:each="sell : ${categoryList}">
+            <li class="product" th:each="sell : ${categoryList}">
               <a th:href="@{/sell/read(sidx=${sell.sidx})}">
                 <!--					<span class="onsale">Sale!</span>-->
                 <th:block th:if="${sell.photo != null}">
@@ -85,8 +85,9 @@
               </a><a th:href="@{/sell/read(sidx=${sell.sidx})}" class="button">상세보기</a>
             </li>
 
-
           </ul>
+
+          <span sec:authorize="isAuthenticated()"><a href="/sell/write" class="btn btn-outline-warning">상품등록</a></span>
 
           <nav class="woocommerce-pagination">
             <ul class="page-numbers pagination">
