@@ -26,6 +26,8 @@ public class Sell {
     @JoinColumn(name = "writer")
     private Member writer;
 
+    private String phone;
+
     @Column
     private String product;  // 상품명
 

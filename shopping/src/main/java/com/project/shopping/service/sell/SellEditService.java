@@ -36,17 +36,19 @@ public class SellEditService {
                 String path = "photo";
                 saveDir = new File(absolutePath, path);
 
-                // 파일이름이 중복되지 않도록 밀리초를 붙여줌
-                newFileName = System.currentTimeMillis() + file.getOriginalFilename();  // 대표이미지
+              if(file!= null && !file.isEmpty()) {
+                    // 파일이름이 중복되지 않도록 밀리초를 붙여줌
+                    newFileName = System.currentTimeMillis() + file.getOriginalFilename();  // 대표이미지
 
-                File newFile = new File(saveDir, newFileName);
+                    File newFile = new File(saveDir, newFileName);
 
-                try {
-                    file.transferTo(newFile);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    try {
+                        file.transferTo(newFile);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
-
 
             if(file1 != null && !file1.isEmpty()){
 
@@ -64,11 +66,14 @@ public class SellEditService {
         // entity 에 저장
         Sell sell = editRequest.toSellEntity();
 
+        // 새로운 파일이 존재한다면 저장
         if (newFileName != null) {
             sell.setPhoto(newFileName);
             if(newFileName1 !=null){
                 sell.setDes1(newFileName1);
             }
+        } else if(newFileName1 != null){
+            sell.setDes1(newFileName1);
         }
 
         int result=0;

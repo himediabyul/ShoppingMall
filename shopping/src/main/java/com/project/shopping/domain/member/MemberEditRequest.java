@@ -19,8 +19,6 @@ public class MemberEditRequest {
 
     private String username;
 
-    private String email;
-
     private String address1;
 
     private String address2;
@@ -38,7 +36,6 @@ public class MemberEditRequest {
                 .uid(uid)
                 .password(password)
                 .username(username)
-                .email(email)
                 .address1(address1)
                 .address2(address2)
                 .address3(address3)

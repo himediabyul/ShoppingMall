@@ -98,7 +98,8 @@
           </p>
 
           <p class="comment-form-comment">
-            <label for="description">상세설명</label><textarea id="description" name="description" th:value="${product.description}" cols="45" rows="8" aria-required="true" required></textarea>
+            <label for="description">상세설명</label>
+            <textarea id="description" name="description" cols="45" rows="8" aria-required="true" required>[[${product.description}]]</textarea>
           </p>
 
           <div class="mb-3">
@@ -120,7 +121,7 @@
 
           <p class="form-submit" style="margin-top: 10px;margin-bottom: 10px;">
             <input type="reset" value="재입력">
-            <input name="submit" type="submit" class="submit" value="등록">
+            <input name="submit" type="submit" class="submit" value="수정">
             <a class="button" th:href="@{/sell/list}">돌아가기</a>
           </p>
           <noscript>

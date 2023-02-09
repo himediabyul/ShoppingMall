@@ -66,14 +66,14 @@ public class SellWriteService {
         // entity 에 저장
         Sell sell = writeRequest.toSellEntity();
 
-
         if(newFileName != null) {
             sell.setPhoto(newFileName);
             if(newFileName1 != null){
                 sell.setDes1(newFileName1);
             }
         }
-
+        // 글 등록일
+        sell.setRegdate(LocalDate.now());
         sellRepository.save(sell);
     }
 

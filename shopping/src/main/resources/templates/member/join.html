@@ -35,7 +35,26 @@
         color : red;
         display : none;
     }
-
+    /* 비밀번호 일치하는 경우 */
+    .pw_input_re_1{
+        color : green;
+        display : none;
+    }
+    /* 비밀번호 일치하지않는 경우 */
+    .pw_input_re_2{
+        color : red;
+        display : none;
+    }
+    /* 번호가 중복되지 않는 경우 */
+    .phone_input_re_1{
+        color : green;
+        display : none;
+    }
+    /* 번호가 중복되는 경우 */
+    .phone_input_re_2{
+        color : red;
+        display : none;
+    }
 </style>
 
 <body class="archive post-type-archive post-type-archive-product woocommerce woocommerce-page">
@@ -105,10 +124,16 @@
                 <span class="id_input_re_2">아이디가 이미 존재합니다.</span>
             </p>
 
+            <p class="comment-form-author">
+                <label>비밀번호<span class="required">*</span></label>
+                <input type="password" class="password" name="password" size="30" aria-required="true" required="required">
+            </p>
 
             <p class="comment-form-author">
-                <label for="password">비밀번호<span class="required">*</span></label>
-                <input id="password" name="password" type="text" size="30" aria-required="true" required="required">
+                <label>비빌번호 확인<span class="required">*</span></label>
+                <input type="password" class="pw_confirm" size="30" aria-required="true" required="required">
+                <span class="pw_input_re_1">비밀번호가 일치합니다.</span>
+                <span class="pw_input_re_2">비밀번호를 확인해주세요!</span>
             </p>
 
             <p class="comment-form-author">
@@ -116,11 +141,12 @@
                 <input id="username" name="username" type="text" size="30" aria-required="true" required="required">
             </p>
 
-            <p class="comment-form-email">
-                <label for="email">이메일 <span class="required">*</span></label>
-                <input id="email" name="email" type="email" size="30" aria-describedby="email-notes" aria-required="true" required="required">
+            <p class="comment-form-author">
+                <label>핸드폰번호<span class="required">*</span></label>
+                <input type="text" name="phone" class="phone_num" oninput="oninputPhone(this)" maxlength="14" aria-required="true" required="required">
+                <span class="phone_input_re_1">사용가능한 번호입니다.</span>
+                <span class="phone_input_re_2">이미 등록된 번호입니다.</span>
             </p>
-
 
             <div class="comment-form-email">
                 <label for="address1" class="form-label">우편번호</label>
@@ -241,16 +267,63 @@
                 if(result != 'fail'){
                     $('.id_input_re_1').css("display","inline-block");
                     $('.id_input_re_2').css("display", "none");
-                    idckCheck = true;
+                    idCheck = true;
                 } else {
                     $('.id_input_re_2').css("display","inline-block");
                     $('.id_input_re_1').css("display", "none");
-                    idckCheck = false;
+                    idCheck = false;
                 }
             }
         })
     })
 
+
+    //비밀번호 재확인
+    $('.pw_confirm').on("keyup", function(){
+
+        var pwcheck = $('.pw_confirm').val();	// .pwconfirm에 입력되는 값
+        var pw = $('.password').val();          // .password에 입력되는 값
+
+        if(pw != pwcheck){
+            $('.pw_input_re_2').css("display","inline-block");
+            $('.pw_input_re_1').css("display", "none");
+        } else {
+            $('.pw_input_re_1').css("display","inline-block");
+            $('.pw_input_re_2').css("display", "none");
+        }
+    })
+
+    // 전화번호 형식적용
+    function oninputPhone(target) {
+        target.value = target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+    }
+
+    // 전화번호 확인
+    $('.phone_num').on("keyup", function(){
+
+        var phone = $('.phone_num').val();		// .phone_num 입력되는 값
+        var data = {phone : phone}				// '컨트롤에 넘길 데이터 이름' : '데이터(.phone_num 입력되는 값)'
+
+        $.ajax({
+            type : "post",
+            url : "/member/phoneCheck",
+            data : data,
+            success : function(result){
+
+                if(result != 'fail'){
+                    $('.phone_input_re_1').css("display","inline-block");
+                    $('.phone_input_re_2').css("display", "none");
+                    phoneCheck = true;
+                } else {
+                    $('.phone_input_re_2').css("display","inline-block");
+                    $('.phone_input_re_1').css("display", "none");
+                    phoneCheck = false;
+                }
+            }
+        })
+    })
 
 </script>
 

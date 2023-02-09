@@ -51,7 +51,7 @@ public class SellRepositoryTest {
     @Test
     public void categoryTest(){
 
-        Page<Sell> page = sellRepository.findByCategoryContaining(1,PageRequest.of(0,2));
+        Page<Sell> page = sellRepository.findByCategory("의류",PageRequest.of(0,2));
 
         long total = page.getTotalElements();
 

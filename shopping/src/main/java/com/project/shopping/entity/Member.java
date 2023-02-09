@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +35,7 @@ public class Member {
 
     @Column
     @NotEmpty
-    private String email;  // 이메일
+    private String phone;  // 전화번호
 
     @Column
     @NotEmpty
@@ -56,7 +56,7 @@ public class Member {
     private String role;   // USER로 고정 INSERT
 
     @Column
-    private LocalDateTime joindate; // 가입일
+    private LocalDate joindate; // 가입일
 
     }
 

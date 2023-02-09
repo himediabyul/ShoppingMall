@@ -94,17 +94,17 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 									<p>
 										<h6>상품분류: <a th:text="${product.category}"/></h6>
 										<h6>판매자: <a th:text="${product.writer.uid}"/></h6>
+										<h6>연락처: <a th:text="${product.phone}"/></h6>
 										<h6>등록일: <a th:text="${product.regdate}"/></h6>
 									</p>
 								</div>
-
 							</div>
 							<!-- .summary -->
 							<div class="woocommerce-tabs wc-tabs-wrapper">
 									<div class="panel entry-content wc-tab" id="tab-description">
-									<h3>상품 상세</h3>
+									<h3>상품 상세</h3><br>
 									<p>
-										<h5 th:text="${product.description}"/>
+										<h5 th:text="${product.description}"/><br>
 										<th:block th:if="${product.des1 != null}">
 											<img th:src="@{/upload/photo/{name}(name=${product.des1})}">
 										</th:block>
@@ -113,10 +113,10 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 
 								<div class="container" style="margin-top: 10px;margin-bottom: 10px;">
 									<th:block th:if="${#authentication.principal.member.uidx} == ${product.writer.uidx}">
-										<a class="wpcmsdev-button color-yellow" th:href="@{/sell/edit(sidx=${product.sidx})}"> 수정</a>
-										<a class="wpcmsdev-button color-red" th:onclick="'deleteProduct('+${product.sidx}+')'">삭제</a>
+										<a class="button" th:href="@{/sell/edit(sidx=${product.sidx})}"> 수정</a>
+										<a class="button" th:onclick="'deleteProduct('+${product.sidx}+')'">삭제</a>
 									</th:block>
-									<a th:href="@{/sell/list}">돌아가기</a>
+									<a class="button" th:href="@{/sell/list}">돌아가기</a>
 								</div>
 
 
@@ -239,6 +239,7 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 </script>
 
 <script src="/js/reply_jquery.js"></script>
+
 
 </body>
 </html>
