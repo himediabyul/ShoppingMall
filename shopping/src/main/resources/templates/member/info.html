@@ -126,6 +126,22 @@
         <div class="wpcmsdev-columns">
             <div class="column column-width-one-third">
                 <p>
+                    주소
+                </p>
+            </div>
+            <div class="column column-width-two-thirds">
+                <p>
+                    <a th:text="${#authentication.principal.member.address1}"/>
+                    <a th:text="${#authentication.principal.member.address2}"/>
+                    <a th:text="${#authentication.principal.member.address3}"/>
+                    <a th:text="${#authentication.principal.member.extra}"/>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="wpcmsdev-columns">
+            <div class="column column-width-one-third">
+                <p>
                     가입일
                 </p>
             </div>

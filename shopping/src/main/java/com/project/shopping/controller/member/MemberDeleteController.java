@@ -17,7 +17,7 @@ public class MemberDeleteController {
 
         deleteService.delete(uidx);
 
-        return "redirect:/";
+        return "redirect:/auth/logout";
     }
 
 }
